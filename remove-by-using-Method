@@ -1,0 +1,53 @@
+/**
+ * The remove() method removes the current node from the list. If the next node exists,
+ * it becomes the current node. Otherwise the previous node becomes the current node. 
+ * If neither node exists, the list becomes empty.
+ * 
+ * @throws Exception    If the list is empty.
+ */
+
+public void remove() throws Exception
+{
+    if (isEmpty())
+    {
+        throw exListEmpty;
+    }
+    Node target = current;      
+    Node prevNode = target.prev;
+    Node nextNode = target.next;
+
+    // current node is at head
+    if (prevNode == null)
+    {
+        nextNode.prev = null;
+        head = nextNode;
+    }
+    else
+    {
+        prevNode.next = nextNode;
+        current = prevNode;
+    }
+
+    // current node is at tail
+    if (nextNode == null)
+    {
+        prevNode.next = null;
+        tail = prevNode;
+    }
+    else
+    {
+        nextNode.prev = prevNode;
+        current = nextNode;
+    }
+    if (prevNode == null && nextNode == null)
+    {
+        isEmpty();
+    }
+    else if (prevNode != null && nextNode != null)
+    {
+        prevNode.next = nextNode;
+        nextNode.prev = prevNode;
+        current = nextNode;
+    }
+    size--; 
+}
